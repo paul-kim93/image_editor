@@ -1,4 +1,4 @@
-name: Build Apps
+name: Build Mac App
 
 on:
   push:
@@ -7,29 +7,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-windows:
-    runs-on: windows-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-      
-      - name: Install dependencies
-        run: pip install -r requirements.txt pyinstaller
-      
-      - name: Build Windows exe
-        run: pyinstaller --onefile --windowed --name="ImageEditor" image_editor.py
-      
-      - name: Upload Windows app
-        uses: actions/upload-artifact@v3
-        with:
-          name: windows-app
-          path: dist/ImageEditor.exe
-
   build-macos:
     runs-on: macos-latest
     steps:
@@ -48,7 +25,7 @@ jobs:
         run: pyinstaller --onefile --windowed --name="ImageEditor" image_editor.py
       
       - name: Upload macOS app
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: macos-app
           path: dist/ImageEditor
